@@ -1,0 +1,21 @@
+{
+  "name": "generator-micro",
+  "version": "1.0.0",
+  "description": "Generator for seneca-based deployable microservice",
+  "main": "index.js",
+  "keywords": [
+    "senecajs",
+    "kubernetes",
+    "jenkins-workflow",
+    "yeoman-generator",
+    "microservices",
+    "docker",
+    "eslint"
+  ],
+  "author": "Andrey <vkfont@gmail.com> Afoninsky",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "yeoman-generator": "^0.24.1"
+  }
+}
