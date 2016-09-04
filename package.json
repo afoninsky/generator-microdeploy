@@ -1,8 +1,7 @@
 {
-  "name": "generator-micro",
+  "name": "generator-microdeploy",
   "version": "1.0.0",
   "description": "Generator for seneca-based deployable microservice",
-  "main": "index.js",
   "keywords": [
     "senecajs",
     "kubernetes",
