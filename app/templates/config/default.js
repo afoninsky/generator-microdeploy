@@ -11,7 +11,7 @@ module.exports = {
     secretToken: 'c6cc9c5556ed92259ee54505da5daceefe8fb240'
   },
   log: {
-    stdout: { raw: true, level: 'debug' }
+    stdout: { level: 'info' }
   },
   microservice: {}
 }

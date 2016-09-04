@@ -42,7 +42,6 @@ function streamsFromConfig(cfg) {
 			case 'stdout':
 				streams.push(ld.defaults(opt, {
 					level: 'debug',
-					type: 'raw',
 					stream: process.stdout
 				}))
 				break
