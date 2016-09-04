@@ -10,5 +10,8 @@ module.exports = {
     organizationId: '187d12f8f3de4367b32c453939b6d765',
     secretToken: 'c6cc9c5556ed92259ee54505da5daceefe8fb240'
   },
+  log: {
+    stdout: { raw: true, level: 'debug' }
+  },
   microservice: {}
 }

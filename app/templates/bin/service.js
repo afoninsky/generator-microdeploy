@@ -1,8 +1,17 @@
+require('babel-core/register')
+require('../src/opbeat')
+require('../src/health')
+
 const config = require('config')
-const seneca = require('seneca')()
+const { createSenecaLogger } = require('../src/utils')
 
-require('./src/opbeat')
-require('./src/health')
+const seneca = require('seneca')({
+	legacy: {
+		logging: false
+	}
+})
 
-seneca.use('./src/microservice', config.microservice)
-seneca.listen(config.lister.port)
+seneca
+	.use(createSenecaLogger(config.log, require('../package')))
+	.use('../src/microservice', config.microservice)
+	.listen(config.listen.port)
