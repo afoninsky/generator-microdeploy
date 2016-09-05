@@ -64,7 +64,7 @@ module.exports = generators.Base.extend({
     }
 		this.spawnCommandSync('git', ['init'])
 		this.spawnCommandSync('git', ['add', '--all'])
-		this.spawnCommandSync('git', ['commit', '-m', `"yeoman file changes: ${name}"`])
+		this.spawnCommandSync('git', ['commit', '-m', `"updates by yeoman ${name} generator"`])
 	},
 
 	end: function () {
@@ -75,11 +75,11 @@ module.exports = generators.Base.extend({
 		this.log('	git remote add origin <remote-repo-url>')
 		this.log('	git push -u origin master')
 		this.log(chalk.blue('Don\'t forget to install unnecessary but recommended packages:'))
-		this.log(`	npm install -g ${peerDeps.join(' ')}`)
+		this.log(`	npm install ${peerDeps.join(' ')}`)
 		this.log(chalk.blue('Available commands:'))
-		this.log('	npm start           # launch microservice')
-		this.log('	npm test            # perform testing')
-		this.log('	npm test:coverage   # generate coverage report in ./coverage/ folder')
-		this.log('	npm update:deps     # update microservice dependencies')
+		this.log('	npm start               # launch microservice')
+		this.log('	npm test                # launch tests')
+		this.log('	npm run test:coverage   # generate coverage report in ./coverage/ folder')
+		this.log('	npm run update:deps     # update microservice dependencies')
 	}
 })
