@@ -1,19 +1,22 @@
 {
-  "name": "<%= name %>",
+  "_name": "<%= name %>",
+  "name": "test",
   "version": "0.0.0",
   "description": "<%= description %>",
   "main": "index.js",
   "scripts": {
     "start": "node bin/service",
-    "test": "nyc ava --verbose",
+    "test": "eslint src && nyc ava --verbose",
     "test:coverage": "nyc report --reporter=html",
     "update:deps": "npm-check -u"
   },
   "author": "<%= author %>",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.16.0",
-    "nyc": "^8.1.0"
+    "ava": "*",
+    "nyc": "*",
+    "babel-eslint": "*",
+    "eslint": "*"
   },
   "dependencies": {
     "babel-core": "^6.14.0",
@@ -31,8 +34,6 @@
     "seneca": "^3.0.0"
   },
   "peerDependencies": {
-    "babel-eslint": "*",
-    "eslint": "*",
     "npm-check": "*"
   }
 }

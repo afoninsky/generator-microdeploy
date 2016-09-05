@@ -75,7 +75,7 @@ module.exports = generators.Base.extend({
 		this.log('	git remote add origin <remote-repo-url>')
 		this.log('	git push -u origin master')
 		this.log(chalk.blue('Don\'t forget to install unnecessary but recommended packages:'))
-		this.log(`	npm install ${peerDeps.join(' ')}`)
+		this.log(`	npm install -g ${peerDeps.join(' ')}`)
 		this.log(chalk.blue('Available commands:'))
 		this.log('	npm start               # launch microservice')
 		this.log('	npm test                # launch tests')
