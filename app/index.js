@@ -1,15 +1,13 @@
 const generators = require('yeoman-generator')
 const chalk = require('chalk')
 const path = require('path')
+const { name } = require('../package')
 
 module.exports = generators.Base.extend({
 
-	constructor: function () {
-		generators.Base.apply(this, arguments)
-		this.option('skip-install')
-	},
-
 	initializing: function () {
+		this.option('skip-install')
+		this.prefix = 'micro'
 		this.log(chalk.yellow('Welcome to seneca microservices generator'))
 	},
 
@@ -21,13 +19,14 @@ module.exports = generators.Base.extend({
       type: 'input',
       name: 'name',
       message: 'Microservice name',
-      validate: function(name) {
-        if (!/^micro-[a-zA-Z.-_]+$/.test(name)) {
-          return 'Project should be named in format "micro-{name}"'
+      validate: name => {
+				const expr = new RegExp(`^${this.prefix}-[a-zA-Z.-_]+$`)
+        if (!expr.test(name)) {
+          return `Project name should follow naming convention: "${this.prefix}-{name}"`
         }
         return true
       },
-			default: `micro-${path.basename(process.cwd())}`
+			default: `${this.prefix}-${path.basename(process.cwd()).split('-').pop()}`
     }, {
 			type: 'input',
 			name: 'description',
@@ -42,7 +41,6 @@ module.exports = generators.Base.extend({
 
     return this.prompt(prompts).then(props => {
 			this.props = props
-      this.log(this.props)
     })
   },
 
@@ -66,7 +64,7 @@ module.exports = generators.Base.extend({
     }
 		this.spawnCommandSync('git', ['init'])
 		this.spawnCommandSync('git', ['add', '--all'])
-		this.spawnCommandSync('git', ['commit', '-m', '"initial commit from generator"'])
+		this.spawnCommandSync('git', ['commit', '-m', `"yeoman file changes: ${name}"`])
 	},
 
 	end: function () {

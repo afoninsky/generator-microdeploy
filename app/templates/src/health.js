@@ -7,12 +7,11 @@ const info = Object.assign(ld.pick(require('../package'), ['name', 'version']), 
 })
 
 const app = koa()
-// /_ah/health
-// /_ah/start
-// /_ah/stop
-app.use(function *() {
+
+app.use(async () => {
   const { method, url } = this
   if (method !== 'GET') { return }
+
   switch (url) {
     case '/_ah/health':
       this.body = info
