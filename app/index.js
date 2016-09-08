@@ -46,6 +46,7 @@ module.exports = generators.Base.extend({
 
 	configuring: function() {
 		this.fs.copy(this.templatePath('.*'), this.destinationRoot())
+		this.fs.copy(this.templatePath('Jenkinsfile'), this.destinationRoot())
 	},
 
   writing: function() {
@@ -58,9 +59,10 @@ module.exports = generators.Base.extend({
 
 	install: function() {
     if (!this.options['skip-install']) {
+			this.log(chalk.yellow('Installing npm dependencies...'))
       this.npmInstall()
     } else {
-      this.log('You have used the --skip-install option, so I won\'t try to install the dependencies')
+      this.log(chalk.red('You have used the --skip-install option, so I won\'t try to install the dependencies'))
     }
 		this.spawnCommandSync('git', ['init'])
 		this.spawnCommandSync('git', ['add', '--all'])

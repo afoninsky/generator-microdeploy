@@ -1,13 +1,12 @@
 {
-  "_name": "<%= name %>",
-  "name": "test",
+  "name": "<%= name %>",
   "version": "0.0.0",
   "description": "<%= description %>",
   "main": "index.js",
   "scripts": {
     "start": "node bin/service",
     "test": "eslint src && nyc ava --verbose",
-    "test:coverage": "nyc report --reporter=html",
+    "test:coverage": "nyc report --reporter=html && open coverage/index.html",
     "update:deps": "npm-check -u"
   },
   "author": "<%= author %>",
