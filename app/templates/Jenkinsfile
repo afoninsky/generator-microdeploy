@@ -1,59 +1,32 @@
 #!groovy
-// https://jenkins.fulldive.com/env-vars.html
-// https://jenkins.io/doc/pipeline/steps/
-// import groovy.json.JsonOutput
 
+def dockerHost = 'tcp://dind.default.svc.cluster.local:2375'
 def projectVersion
 def projectName
-
-// def notifySlack(text, channel) {
-//     def slackURL = 'https://hooks.slack.com/services/xxxxxxx/yyyyyyyy/zzzzzzzzzz'
-//     def payload = JsonOutput.toJson([text      : text,
-//                                      channel   : channel,
-//                                      username  : "jenkins",
-//                                      icon_emoji: ":jenkins:"])
-//     sh "curl -X POST --data-urlencode \'payload=${payload}\' ${slackURL}"
-// }
+def testImageTag
+def publishImageTag
 
 node('nodejs-latest') {
-  try {
-    stage('Fetch') {
-      timeout(time: 5, unit: 'MINUTES') {
-        git url: 'https://github.com/afoninsky/micro-test'
-        projectName = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').name"').trim()
-        projectVersion = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').version"').trim()
-        // sh 'npm install'
-      }
-    }
-    stage('Test') {
-      timeout(time: 1, unit: 'MINUTES') {
-        // sh 'npm test'
-        // 2do: compare coverage value with previous one, fail if its lower
-        // 2do: save current coverage value
-      }
-    }
-    stage('Pack') {
-      // sh 'npm prune --production'
-      // sh 'npm dedupe'
-      // 2do: build docker image with custom tags
-      // def image = docker.build "us.gcr.io/spair-api/${projectName}:${projectVersion}"
-      def image = docker.build "us.gcr.io/spair-api/${projectName}:${projectVersion}"
-      // docker run -v /var/run/docker.sock:/var/run/docker.sock ... ???
-      // 2do: push with build tag: "build:${env.BUILD_TAG}"
-      // 2do: push image into registry
-    }
-    stage('Deep test') {
-      // 2do: create kubernetes build-specific deploy
-      // 2do: run ingegration tests
-    }
-    stage('Finish') {
-      // 2do: update image tags to release version
-      // 2do: inform about success
-    }
-  } catch (err) {
-      // 2do: inform about fail
-    throw err
-  } finally {
-    // 2do: remove build-specific deploy
+  stage('build') {
+    git url: 'https://github.com/afoninsky/micro-test'
+    projectName = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').name"').trim()
+    projectVersion = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').version"').trim()
+    testImageTag = "us.gcr.io/spair-api/artifacts/${env.BUILD_TAG}"
+    publishImageTag = "us.gcr.io/spair-api/${projectName}:${projectVersion}"
+
+  }
+
+  stage('quick test') {
+    sh 'npm test'
+  }
+
+  stage('pack') { // BUILD_TAG
+    echo "docker -H ${dockerHost} build -t ${testImageTag} ."
+    // sh "docker -H tcp://dind.default.svc.cluster.local:2375 build -t 'us.gcr.io/spair-api/artifacts/${env.BUILD_TAG}' ."
+    // sh "docker -H tcp://dind.default.svc.cluster.local:2375 build -t 'us.gcr.io/spair-api/${projectName}:${projectVersion}' ."
+  }
+
+  stage('deep test') {
+
   }
 }

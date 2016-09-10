@@ -1,7 +1,6 @@
 const generators = require('yeoman-generator')
 const chalk = require('chalk')
 const path = require('path')
-const { name } = require('../package')
 
 module.exports = generators.Base.extend({
 
@@ -45,8 +44,9 @@ module.exports = generators.Base.extend({
   },
 
 	configuring: function() {
-		this.fs.copy(this.templatePath('.*'), this.destinationRoot())
-		this.fs.copy(this.templatePath('Jenkinsfile'), this.destinationRoot())
+		this.fs.copy(this.templatePath('\.*'), this.destinationRoot())
+		this.fs.copy(this.templatePath('Jenkinsfile'), this.destinationPath('Jenkinsfile'))
+		this.fs.copy(this.templatePath('Dockerfile'), this.destinationPath('Dockerfile'))
 	},
 
   writing: function() {
@@ -66,7 +66,7 @@ module.exports = generators.Base.extend({
     }
 		this.spawnCommandSync('git', ['init'])
 		this.spawnCommandSync('git', ['add', '--all'])
-		this.spawnCommandSync('git', ['commit', '-m', `"updates by yeoman ${name} generator"`])
+		this.spawnCommandSync('git', ['commit', '-m', '"project skeleton"'])
 	},
 
 	end: function () {
