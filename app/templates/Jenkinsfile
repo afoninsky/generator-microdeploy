@@ -12,15 +12,16 @@ node('nodejs') {
     projectName = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').name"').trim()
     projectVersion = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').version"').trim()
     publishImageTag = "us.gcr.io/spair-api/${projectName}:${projectVersion}"
-    sh "docker -H ${dockerHost} build -t ${publishImageTag} . "
+    sh "docker -H ${dockerHost} run -t ${publishImageTag} . "
   }
 
   stage('test') {
     sh "docker -H ${dockerHost} exec ${publishImageTag} npm test"
     //2do: deply test service and perform intergration test
+    //2do: compare coverage with previous value
   }
 
   stage('push') {
-    sh "gcloud docker push ${publishImageTag}"
+    sh "docker -H ${dockerHost} push ${publishImageTag}"
   }
 }
