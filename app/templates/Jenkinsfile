@@ -3,30 +3,24 @@
 def dockerHost = 'tcp://dind.default.svc.cluster.local:2375'
 def projectVersion
 def projectName
-def testImageTag
 def publishImageTag
 
-node('nodejs-latest') {
+node('nodejs') {
+
   stage('build') {
     git url: 'https://github.com/afoninsky/micro-test'
     projectName = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').name"').trim()
     projectVersion = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').version"').trim()
-    testImageTag = "us.gcr.io/spair-api/artifacts/${env.BUILD_TAG}"
     publishImageTag = "us.gcr.io/spair-api/${projectName}:${projectVersion}"
-
+    sh "docker -H ${dockerHost} build -t ${publishImageTag} . "
   }
 
-  stage('quick test') {
-    sh 'npm test'
+  stage('test') {
+    sh "docker -H ${dockerHost} exec ${publishImageTag} npm test"
+    //2do: deply test service and perform intergration test
   }
 
-  stage('pack') { // BUILD_TAG
-    echo "docker -H ${dockerHost} build -t ${testImageTag} ."
-    // sh "docker -H tcp://dind.default.svc.cluster.local:2375 build -t 'us.gcr.io/spair-api/artifacts/${env.BUILD_TAG}' ."
-    // sh "docker -H tcp://dind.default.svc.cluster.local:2375 build -t 'us.gcr.io/spair-api/${projectName}:${projectVersion}' ."
-  }
-
-  stage('deep test') {
-
+  stage('push') {
+    sh "gcloud docker push ${publishImageTag}"
   }
 }
