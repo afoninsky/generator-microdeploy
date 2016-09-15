@@ -1,0 +1,54 @@
+# https://docs.gitlab.com/ee/ci/yaml/README.html
+# curl -X POST -F token=55660d779b558de1a5256ee6d5d5a9 -F ref=master -F "variables[CI_BULD_NAME]=somename" "https://gitlab.com/api/v3/projects/1655798/trigger/builds??token=55660d779b558de1a5256ee6d5d5a9&ref=master"
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  REGISTRY_PATH: registry.gitlab.com
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY_PATH
+  - export CONTAINER_IMAGE="${REGISTRY_PATH}/edissons-micro/test:${CI_BUILD_TAG:-$CI_BULD_NAME}"
+
+# create docker image with artifacts
+docker:build:
+  stage: build
+  script:
+    - docker build --pull -t $CONTAINER_IMAGE .
+    - docker push $CONTAINER_IMAGE
+  only:
+    - triggers
+    - tags
+
+# quick test against built container
+unit:tests:
+  stage: test
+  script:
+    - docker pull $CONTAINER_IMAGE
+    - docker run $CONTAINER_IMAGE npm test
+  only:
+    - triggers
+    - tags
+
+# put image into staging machine
+deploy:staging:
+  stage: deploy
+  when: on_success
+  script:
+    - echo deploying into staging... # 2do - have no idea yet how to imlement it
+  only:
+    - triggers
+    - tags
+
+
+# if build failed - remove broken image from repository
+clean:artifacts:
+  stage: deploy
+  when: on_failure
+  script:
+    - docker rmi $CONTAINER_IMAGE
+  only:
+    - triggers
+    - tags
