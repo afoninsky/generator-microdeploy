@@ -10,7 +10,7 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $REGISTRY_PATH
-  - export CONTAINER_IMAGE="${REGISTRY_PATH}/edissons-micro/test:${CI_BUILD_TAG:-$CI_BULD_NAME}"
+  - export CONTAINER_IMAGE="${REGISTRY_PATH}/<%= name %>/service:${CI_BUILD_TAG:-$CI_BULD_NAME}"
 
 # create docker image with artifacts
 docker:build:
