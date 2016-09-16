@@ -1,5 +1,12 @@
 FROM ubuntu:latest
 
+MAINTAINER Andrey Afoninsky
+
+ARG EMAIL
+ARG PROJECT_ID
+ARG ZONE
+ARG CLUSTER
+
 RUN apt-get -qq update && apt-get install -y curl python
 
 # nodejs
@@ -12,17 +19,18 @@ RUN curl -sSL https://get.docker.com | sh
 
 # gcloud/kubectl
 ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
+ENV CREDENTIALS="/root/.config/gcloud/application_default_credentials.json"
+
 RUN curl -SLO https://dl.google.com/dl/cloudsdk/release/install_google_cloud_sdk.bash \
-  && bash install_google_cloud_sdk.bash --disable-prompts --install-dir=/root \
+  && bash install_google_cloud_sdk.bash --disable-prompts \
   && yes | gcloud components install kubectl
 
-COPY google.json ~/.config/gcloud/application_default_credentials.json
+COPY google.json $CREDENTIALS
 
-RUN gcloud auth activate-service-account `node -p 'require("/root/.config/gcloud/application_default_credentials.json").client_email'` --key-file  ~/.config/gcloud/application_default_credentials.json \
-  && gcloud docker --authorize-only \
-#  cp /root/google.json ~/.config/gcloud/application_default_credentials.json
-  && gcloud config set project `node -p 'require("/root/google.json").project_id'` \
-  && gcloud config set compute/zone us-central1-f \
-  && gcloud container clusters get-credentials edissons-cluster
+# `node -p 'require(process.argv[1]).client_email' $CREDENTIALS`
+# `node -p 'require(process.argv[1]).project_id' $CREDENTIALS`
 
-RUN rm /root/google.json
+RUN gcloud auth activate-service-account $EMAIL --key-file $CREDENTIALS \
+  && gcloud config set project $PROJECT_ID \
+  && gcloud config set compute/zone $ZONE \
+  && gcloud container clusters get-credentials $CLUSTER
