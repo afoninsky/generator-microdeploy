@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "spair-api",
+  "private_key_id": "510f53b8d7ff7f5dfa9d5afb751bd0ceae9b9327",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCYIthk8eXf5Whl\nCmQNplbtDPhAAxeLXobA7MombW3zhi4HrTKBNFrLj6CZK6j5okpsnyhnEAdM7kog\nmHY3DYQCkpErU6lfjJTRF2ZF5JpXyJ2M2N4v8TS19IAh0uRSkeYfa9DupCEGAG3e\nw6xWkYQN9f2o3j7YLHmTnY+vGARbKG/VjUtvkJ2dCE8OOYrGXnYnwQN6aI78aU57\nDKAyPidIaK9LnjobIYygPIMRmDlP44atUGPRVvUjbgQO9059fPHssN2Q1iEwGc9I\n+Zf+FkYASoqyqmTnBjmOOCYuJZDnAmh49OiNP4+Z4xankpx1zqriaBlleKVQOp/r\nAwaYS9f/AgMBAAECggEAC2JQHv2a3e4kqarlYcAYsRRPXzrcACnKm5Uca1O07owT\n1a84IELyqFjPA6cotcVXHFmshEnGwhLyqQ2/is8QGcEt67gO7H9wg1Tk6kX45qi0\nYV25Ao1iDFuHWwCU5TjVp3RB5hmR/wj5L7okozWwU/scSA6ZVUO+tTUNE2UQrmFy\nozxOaaRg4b1OgOaep/o9wqXxz9ISVrBlfa3Pi1C5phLBCcRerfKRpHSqMVURZPlJ\nYO1+UxtyTBpjrz5gWy5jvFWNqOGhNmiyURr8ciOS4iXWSMcRuC+TdBVMZSAMroxE\n1LRrAB8unuKm1gr0l1bvN8UW1DxN0KTwJtEBiQhXAQKBgQDS5zpJGUbqwF8Moqip\nop8AgIj9wq2IFCXTTvDLGcbvQyF14NiqRFGPpv7sWZazvZTsStpFdfgLG8HMaIdW\n5fl73RVQ3d9TbG66Z5hePpAtpc90Di+AvLKQFyglQP1u+/zrHk2TvAwvLMEqnxQR\nSb3ymZLwOZTB4xTIsKj5KlDKzwKBgQC4qrmoPRXIQjyqgC3tUuRT/Q4HFlPDNqIP\n8eMuaDd7UePgpV+jw4lund7cJeDOIWj/wBEYD7B8OEoWkrOkZ42KYc+l1n+sWlQt\n1+pVCxyX2JBdStSMgR+v9LnzBLqfRtkLtgv+IhrNhopyDWmGdWHQKAiZ2/YoEzdW\n0rjVXMKr0QKBgCX60fo7/RNlVTiXSjxSNsQGYaUhG9L3neAxxRcuKy8HLc1mkl4H\nM5DlB99UOtlfeKQczrXXirWlZ/8Bi+3QOF9f7ujDK+aADmivIzdFmP0/cN57d359\nfMKKCQa8b2c/JcrJiDrkkGUmcBrWzuxWFUjM8zMji3BnDmUduzAzuJztAoGBAJhW\nvrG7Mqzxd3pwI3MUXqeqqlfOY2s3NppQwUkXUC27cHFx+2PtewJ12dNirAFgLm5M\n0801pDHVfckBXJDTnD/8UIBOYySbn7Xx2K4vbHcXgIB1qsH+A1X0XTHNROcAWyz+\nEQaku9ewlaVgyxzQ2NAPNok2m+qTb6OAUloxG6cBAoGBAM+1XQ87dDsL0UEDke+C\nXwp51ifQMu6P24e2ct2K4R1o/x/2BA//gYfFqKjpIVCWqff68BsNV//8uAjSoFBo\n7k6KBArleE647fjL0xNJgoX2/PjHNjZ31fo5xlWcB2Njiq7OtbWWkf88NgMlT105\neS2WUB92Y01EebGzBr0q9Eqe\n-----END PRIVATE KEY-----\n",
+  "client_email": "edissons-admin@spair-api.iam.gserviceaccount.com",
+  "client_id": "113987478059637212847",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/edissons-admin%40spair-api.iam.gserviceaccount.com"
+}

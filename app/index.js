@@ -46,7 +46,7 @@ module.exports = generators.Base.extend({
 	configuring: function() {
 		this.fs.copy(this.templatePath('\.*'), this.destinationRoot())
 		this.fs.copy(this.templatePath('Dockerfile'), this.destinationPath('Dockerfile'))
-		this.fs.copy(this.templatePath('gitlab-ci.yml'), this.destinationPath('.gitlab-ci.yml'))
+		// this.fs.copy(this.templatePath('gitlab-ci.yml'), this.destinationPath('.gitlab-ci.yml'))
 	},
 
   writing: function() {
